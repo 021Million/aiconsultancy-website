@@ -1,0 +1,10 @@
+# Netlify configuration for AI Consultancy NZ
+
+[build]
+  functions = "netlify/functions"
+
+# Route /api/subscribe to the serverless function
+[[redirects]]
+  from = "/api/subscribe"
+  to   = "/.netlify/functions/subscribe"
+  status = 200

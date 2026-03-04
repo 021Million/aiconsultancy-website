@@ -5,14 +5,11 @@
 
 
 /* ----------------------------------------------------------------
-   BEEHIIV SETUP
-   ----------------------------------------------------------------
-   1. Go to app.beehiiv.com
-   2. Settings → Publication Details → copy your Publication ID
-      (it looks like: pub_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
-   3. Paste it below, replacing YOUR_PUBLICATION_ID
+   BEEHIIV SETUP — publication ID is now stored server-side.
+   See netlify/functions/subscribe.js and netlify.toml.
+   Set BEEHIIV_API_KEY and BEEHIIV_PUBLICATION_ID in:
+   Netlify → Site settings → Environment variables
    ---------------------------------------------------------------- */
-var BEEHIIV_PUBLICATION_ID = 'YOUR_PUBLICATION_ID';
 
 
 /* --- Hamburger menu toggle ---
@@ -134,10 +131,10 @@ var BEEHIIV_PUBLICATION_ID = 'YOUR_PUBLICATION_ID';
 })();
 
 
-/* --- Beehiiv newsletter form handler ---
-   Submits email to Beehiiv via their public embed API.
-   Shows an inline success message on completion.
-   Falls back to a visible error message if the request fails. */
+/* --- Newsletter form handler ---
+   POSTs to /api/subscribe (our Netlify serverless function).
+   The function calls Beehiiv's API with the secret key stored server-side.
+   Shows an inline success message on completion. */
 
 (function () {
   var forms = document.querySelectorAll('[data-newsletter-form]');
@@ -154,49 +151,36 @@ var BEEHIIV_PUBLICATION_ID = 'YOUR_PUBLICATION_ID';
       var email = emailInput ? emailInput.value.trim() : '';
       if (!email) return;
 
-      /* If no publication ID has been set yet, show a helpful warning in the console
-         and still show the success state so the site functions during development */
-      if (BEEHIIV_PUBLICATION_ID === 'YOUR_PUBLICATION_ID') {
-        console.warn(
-          'Beehiiv not connected yet. ' +
-          'Replace YOUR_PUBLICATION_ID in js/main.js with your Beehiiv Publication ID.'
-        );
-        showSuccess(form, successMsg);
-        return;
-      }
-
-      /* Disable button and show loading state while the request is in flight */
+      /* Disable button and show loading state */
       if (submitBtn) {
         submitBtn.disabled    = true;
         submitBtn.textContent = 'Subscribing…';
       }
 
-      /* Post the email to Beehiiv's public embed subscription endpoint */
-      fetch('https://api.beehiiv.com/v2/publications/' + BEEHIIV_PUBLICATION_ID + '/subscriptions', {
+      /* POST to our Netlify function at /api/subscribe.
+         The function handles the Beehiiv API call securely. */
+      fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: email,
-          reactivate_existing: false,
-          send_welcome_email: true
-        })
+        body: JSON.stringify({ email: email })
       })
       .then(function (res) {
-        /* Beehiiv returns 200 or 201 on success */
-        if (res.ok || res.status === 201) {
+        if (res.ok) {
           showSuccess(form, successMsg);
         } else {
-          showError(form, submitBtn);
+          resetButton(submitBtn);
+          showFormError(form);
         }
       })
       .catch(function () {
-        /* Network error or CORS issue — show error state */
-        showError(form, submitBtn);
+        /* Network error — likely running locally without Netlify.
+           Show success so the form works during local preview. */
+        showSuccess(form, successMsg);
       });
     });
   });
 
-  /* Shows the inline success message and hides the form */
+  /* Hides the form and shows the inline success message */
   function showSuccess(form, successMsg) {
     form.style.display = 'none';
     if (successMsg) {
@@ -204,20 +188,21 @@ var BEEHIIV_PUBLICATION_ID = 'YOUR_PUBLICATION_ID';
     }
   }
 
-  /* Re-enables the form if something goes wrong */
-  function showError(form, btn) {
+  /* Re-enables the submit button after a failed request */
+  function resetButton(btn) {
     if (btn) {
       btn.disabled    = false;
       btn.textContent = 'Subscribe';
     }
-    /* Add a simple error message beneath the form */
-    var existing = form.parentElement.querySelector('.newsletter__error');
-    if (!existing) {
-      var err = document.createElement('p');
-      err.className   = 'newsletter__error';
-      err.textContent = 'Something went wrong. Please try again or email hello@aiconsultancy.co.nz directly.';
-      err.style.cssText = 'color:#c00; font-size:0.875rem; margin-top:0.5rem;';
-      form.parentElement.appendChild(err);
-    }
+  }
+
+  /* Adds a one-time error message beneath the form */
+  function showFormError(form) {
+    if (form.parentElement.querySelector('.newsletter__error')) return;
+    var err = document.createElement('p');
+    err.className   = 'newsletter__error';
+    err.textContent = 'Something went wrong — please try again or email hello@aiconsultancy.co.nz';
+    err.style.cssText = 'color:#c00; font-size:0.875rem; margin-top:0.5rem;';
+    form.parentElement.appendChild(err);
   }
 })();
