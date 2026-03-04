@@ -201,7 +201,7 @@
     if (form.parentElement.querySelector('.newsletter__error')) return;
     var err = document.createElement('p');
     err.className   = 'newsletter__error';
-    err.textContent = 'Something went wrong — please try again or email hello@aiconsultancy.co.nz';
+    err.textContent = 'Something went wrong — please try again.';
     err.style.cssText = 'color:#c00; font-size:0.875rem; margin-top:0.5rem;';
     form.parentElement.appendChild(err);
   }
