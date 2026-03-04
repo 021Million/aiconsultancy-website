@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverrideIcon
+._*
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Reference docs (not needed in the deployed repo)
+CLAUDE.md
+PRD-aiconsultancy-website.md
+ideal-customer-profile.md
+plugins/
+
+# Logs
+*.log
