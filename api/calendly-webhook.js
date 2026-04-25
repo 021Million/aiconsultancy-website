@@ -54,13 +54,15 @@ module.exports = async function handler(req, res) {
     meetingLink, company, website, biggestChallenge, allQAs: qas,
   }, null, 2));
 
-  // --- Research + doc + notification in background -------------------------
-  // Fire-and-forget: don't await so we respond to Calendly immediately.
-  console.log('[Calendly] Firing processBooking (fire-and-forget)...');
-  processBooking({ name, email, company, website, biggestChallenge, startTime, meetingLink })
-    .catch(function (err) {
-      console.error('[processBooking] Top-level failure:', err.message, err.stack);
-    });
+  // --- Run research + doc + notification synchronously before responding ----
+  // Vercel kills the function after the 200 is sent, so everything must
+  // complete before we return. maxDuration: 30 in vercel.json gives us time.
+  console.log('[Calendly] Starting processBooking (awaited)...');
+  try {
+    await processBooking({ name, email, company, website, biggestChallenge, startTime, meetingLink });
+  } catch (err) {
+    console.error('[processBooking] Top-level failure:', err.message, err.stack);
+  }
 
   console.log('[Calendly] Responding 200 to Calendly');
   return res.status(200).json({ received: true });
