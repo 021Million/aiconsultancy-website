@@ -3,44 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog — AI Consultancy</title>
-  <meta name="description" content="Analysis and implementation insight from AI Consultancy. Practical perspectives on AI adoption, automation, and business transformation.">
-  <meta property="og:title" content="Blog — AI Consultancy">
-  <meta property="og:description" content="Analysis and implementation insight from AI Consultancy. Practical perspectives on AI adoption, automation, and business transformation.">
+  <title>Insights — AI Consultancy</title>
+  <meta name="description" content="Practical perspectives on AI implementation, automation, and business operations. Written for decision-makers thinking seriously about AI.">
+  <meta property="og:title" content="Insights — AI Consultancy">
+  <meta property="og:description" content="Practical perspectives on AI implementation, automation, and business operations.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://aiconsultancy.co.nz/blog.html">
   <meta property="og:image" content="https://aiconsultancy.co.nz/assets/images/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Blog — AI Consultancy">
-  <meta name="twitter:description" content="Analysis and implementation insight from AI Consultancy. Practical perspectives on AI adoption, automation, and business transformation.">
-  <meta name="twitter:image" content="https://aiconsultancy.co.nz/assets/images/og-image.jpg">
   <link rel="canonical" href="https://aiconsultancy.co.nz/blog.html">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-  <!-- NAVIGATION -->
   <header>
     <nav class="nav" aria-label="Main navigation">
       <div class="container">
         <div class="nav__inner">
           <a href="/" class="nav__logo">AI Consultancy</a>
-
-          <button
-            class="nav__hamburger"
-            aria-label="Open navigation menu"
-            aria-expanded="false"
-            aria-controls="nav-links"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
+          <button class="nav__hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-links">
+            <span></span><span></span><span></span>
           </button>
-
           <ul class="nav__links" id="nav-links" role="list">
             <li><a href="/">Home</a></li>
-            <li><a href="/blog.html">Blog</a></li>
-            <li><a href="/#contact">Contact</a></li>
+            <li class="nav__has-dropdown">
+              <button class="nav__dropdown-toggle" aria-expanded="false" aria-controls="industries-menu">
+                Industries
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <ul class="nav__dropdown" id="industries-menu" role="list">
+                <li><a href="/industries/healthcare.html">Healthcare Clinics</a></li>
+                <li><a href="/industries/education.html">Education Providers</a></li>
+                <li><a href="/industries/trades.html">Trades &amp; Services</a></li>
+                <li><a href="/industries/real-estate.html">Real Estate</a></li>
+                <li><a href="/industries/admin-teams.html">Admin-Heavy Teams</a></li>
+                <li><a href="/industries/professional-services.html">Professional Services</a></li>
+              </ul>
+            </li>
+            <li><a href="/services.html">Services</a></li>
+            <li><a href="/ai-training.html">Training</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/blog.html" aria-current="page">Insights</a></li>
+            <li><a href="/contact.html">Contact</a></li>
           </ul>
         </div>
       </div>
@@ -50,13 +54,11 @@
   <main>
     <div class="container">
 
-      <!-- Blog page header -->
       <div class="blog-index__header">
-        <h1 class="blog-index__heading">The Blog</h1>
-        <p class="blog-index__sub">Analysis and implementation insight from AI Consultancy. Practical perspectives on AI adoption, automation, and business transformation.</p>
+        <h1 class="blog-index__heading">Insights</h1>
+        <p class="blog-index__sub">Practical perspectives on AI implementation, workflow automation, and how businesses are using AI right now. Written for people making real decisions, not following trends.</p>
       </div>
 
-      <!-- Blog post list — newest first -->
       <div class="blog-index__list">
 
         <article class="blog-index__entry">
@@ -67,7 +69,7 @@
           <h2 class="blog-index__entry-title">
             <a href="blog/what-nz-businesses-ask-about-ai.html">What Businesses Are Actually Asking About AI</a>
           </h2>
-          <p class="blog-index__excerpt">The questions that surface in every AI engagement across trades, health, and real estate, and the honest answers. No pitch, no jargon. Just the real conversations happening right now between business owners and their AI partners.</p>
+          <p class="blog-index__excerpt">The questions that surface in every engagement, and the honest answers. No pitch, no jargon. The real conversations happening right now between business owners and the question of whether AI is for them.</p>
           <a href="blog/what-nz-businesses-ask-about-ai.html" class="blog-index__read">Read &rarr;</a>
         </article>
 
@@ -91,7 +93,7 @@
           <h2 class="blog-index__entry-title">
             <a href="blog/four-eras-of-business-technology.html">The Four Eras of Business Technology (And Why AI Is Next)</a>
           </h2>
-          <p class="blog-index__excerpt">Every decade has had a technology that separated the businesses that grew from the ones that fell behind. The Internet, Google Search, social media, and now AI. Here is the pattern, why it is repeating, and what it means for your business right now.</p>
+          <p class="blog-index__excerpt">Every decade has had a technology that separated the businesses that grew from the ones that fell behind. The Internet, social media, and now AI. Here is the pattern, why it is repeating, and what it means for your business.</p>
           <a href="blog/four-eras-of-business-technology.html" class="blog-index__read">Read &rarr;</a>
         </article>
 
@@ -103,7 +105,7 @@
           <h2 class="blog-index__entry-title">
             <a href="blog/why-i-started-ai-consultancy-nz.html">Why AI Consultancy Exists</a>
           </h2>
-          <p class="blog-index__excerpt">The problem AI Consultancy was founded to solve, the gap that existed in the market, and why the timing for businesses acting on AI right now has never been more important.</p>
+          <p class="blog-index__excerpt">The problem AI Consultancy was founded to solve, the gap that existed in the market, and why the timing for businesses to act on AI right now has never been more important.</p>
           <a href="blog/why-i-started-ai-consultancy-nz.html" class="blog-index__read">Read &rarr;</a>
         </article>
 
@@ -112,36 +114,53 @@
   </main>
 
 
-  <!-- FOOTER -->
+  <section class="cta-section" aria-labelledby="blog-cta-heading">
+    <div class="container">
+      <div class="cta-section__inner">
+        <span class="cta-section__label">Get started</span>
+        <h2 class="cta-section__heading" id="blog-cta-heading">Want to talk through how AI applies to your business?</h2>
+        <p class="cta-section__sub">Book a free 30-minute call. We'll focus on what's actually relevant to your industry and your operations.</p>
+        <div class="cta-section__group">
+          <a href="https://calendly.com/aiconsulting-keira/30min" class="btn btn--large" target="_blank" rel="noopener noreferrer">Book a free call</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
   <footer class="footer">
     <div class="container">
       <div class="footer__inner">
-        <span class="footer__brand">AI Consultancy</span>
-
-        <nav class="footer__nav" aria-label="Footer navigation">
-          <a href="/">Home</a>
-          <a href="/blog.html">Blog</a>
-          <a href="/#contact">Contact</a>
+        <div>
+          <span class="footer__brand">AI Consultancy</span>
+          <p class="footer__tagline">Practical AI for businesses that want to work smarter.</p>
+        </div>
+        <nav class="footer__nav-group" aria-label="Services">
+          <p class="footer__nav-label">Services</p>
+          <a href="/services.html">All Services</a>
+          <a href="/ai-training.html">AI Training</a>
+          <a href="/contact.html">Get in Touch</a>
         </nav>
-
+        <nav class="footer__nav-group" aria-label="Industries">
+          <p class="footer__nav-label">Industries</p>
+          <a href="/industries/healthcare.html">Healthcare</a>
+          <a href="/industries/education.html">Education</a>
+          <a href="/industries/trades.html">Trades</a>
+          <a href="/industries/real-estate.html">Real Estate</a>
+        </nav>
+        <nav class="footer__nav-group" aria-label="Company">
+          <p class="footer__nav-label">Company</p>
+          <a href="/about.html">About</a>
+          <a href="/blog.html">Insights</a>
+          <a href="/contact.html">Contact</a>
+        </nav>
+      </div>
+      <div class="footer__bottom">
         <p class="footer__copy">&copy; 2026 AI Consultancy</p>
+        <p class="footer__copy">hello@aiconsultancy.co.nz</p>
       </div>
     </div>
   </footer>
-
-  <style>
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-  </style>
 
   <script src="js/main.js"></script>
 </body>
