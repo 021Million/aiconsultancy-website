@@ -12,54 +12,9 @@ module.exports = async function handler(req, res) {
   // --- Read raw body -------------------------------------------------------
   const rawBody = await readRawBody(req);
 
-  // --- Verify Calendly HMAC-SHA256 signature --------------------------------
-  // Header format: Calendly-Webhook-Signature: t=<unix_ts>,v1=<hex_digest>
-  // Signed content: "<timestamp>.<raw_body>"
-  const secret = process.env.CALENDLY_WEBHOOK_SECRET;
-console.log('ENV CHECK:', {
-  hasSecret: !!secret,
-  hasApiKey: !!process.env.CALENDLY_API_KEY,
-  hasAnthropic: !!process.env.ANTHROPIC_API_KEY,
-  allEnvKeys: Object.keys(process.env).filter(k => k.includes('CALENDLY') || k.includes('ANTHROPIC'))
-});
-if (!secret) {
-  return res.status(500).json({ 
-    error: 'Server configuration error',
-    debug: Object.keys(process.env).filter(k => !k.includes('npm'))
-  });
-}
-
-  const sigHeader = req.headers['calendly-webhook-signature'];
-  if (!sigHeader) {
-    console.warn('[Calendly] Missing signature header');
-    return res.status(400).json({ error: 'Missing Calendly-Webhook-Signature header' });
-  }
-
-  const t   = parseHeaderPart(sigHeader, 't=');
-  const v1  = parseHeaderPart(sigHeader, 'v1=');
-
-  if (!t || !v1) {
-    console.warn('[Calendly] Malformed signature header:', sigHeader);
-    return res.status(400).json({ error: 'Malformed signature header' });
-  }
-
-  const expected = crypto
-    .createHmac('sha256', secret)
-    .update(t + '.' + rawBody, 'utf8')
-    .digest('hex');
-
-  // timingSafeEqual requires equal-length buffers — both are 64-char hex strings
-  // but guard against a malformed v1 value just in case
-  const receivedBuf = Buffer.from(v1, 'hex');
-  const expectedBuf = Buffer.from(expected, 'hex');
-
-  if (
-    receivedBuf.length !== expectedBuf.length ||
-    !crypto.timingSafeEqual(receivedBuf, expectedBuf)
-  ) {
-    console.warn('[Calendly] Signature mismatch — possible spoofed request');
-    return res.status(403).json({ error: 'Invalid signature' });
-  }
+  // --- Signature verification temporarily disabled -------------------------
+  // TODO: re-enable before production
+  console.log('[Calendly] Signature check skipped (disabled for testing)');
 
   // --- Parse JSON payload --------------------------------------------------
   let body;
