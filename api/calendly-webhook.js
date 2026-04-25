@@ -16,10 +16,18 @@ module.exports = async function handler(req, res) {
   // Header format: Calendly-Webhook-Signature: t=<unix_ts>,v1=<hex_digest>
   // Signed content: "<timestamp>.<raw_body>"
   const secret = process.env.CALENDLY_WEBHOOK_SECRET;
-  if (!secret) {
-    console.error('[Calendly] CALENDLY_WEBHOOK_SECRET env var is not set');
-    return res.status(500).json({ error: 'Server configuration error' });
-  }
+console.log('ENV CHECK:', {
+  hasSecret: !!secret,
+  hasApiKey: !!process.env.CALENDLY_API_KEY,
+  hasAnthropic: !!process.env.ANTHROPIC_API_KEY,
+  allEnvKeys: Object.keys(process.env).filter(k => k.includes('CALENDLY') || k.includes('ANTHROPIC'))
+});
+if (!secret) {
+  return res.status(500).json({ 
+    error: 'Server configuration error',
+    debug: Object.keys(process.env).filter(k => !k.includes('npm'))
+  });
+}
 
   const sigHeader = req.headers['calendly-webhook-signature'];
   if (!sigHeader) {
