@@ -25,6 +25,8 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid JSON body' });
   }
 
+  console.log('[Calendly] Raw payload:', JSON.stringify(body, null, 2));
+
   // --- Extract fields -------------------------------------------------------
   // Calendly invitee.created payload shape:
   // { event: "invitee.created", payload: { event_type, event, invitee } }
