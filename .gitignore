@@ -16,5 +16,10 @@ PRD-aiconsultancy-website.md
 ideal-customer-profile.md
 plugins/
 
+# Environment variables — never commit these
+.env
+.env.local
+.env.*.local
+
 # Logs
 *.log

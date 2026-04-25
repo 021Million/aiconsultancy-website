@@ -8,3 +8,9 @@
   from = "/api/subscribe"
   to   = "/.netlify/functions/subscribe"
   status = 200
+
+# Route Calendly webhook events to the prep pipeline
+[[redirects]]
+  from = "/api/calendly-webhook"
+  to   = "/.netlify/functions/calendly-webhook"
+  status = 200
