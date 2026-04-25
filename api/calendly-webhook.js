@@ -28,29 +28,32 @@ module.exports = async function handler(req, res) {
   console.log('[Calendly] Raw payload:', JSON.stringify(body, null, 2));
 
   // --- Extract fields -------------------------------------------------------
-  // Calendly invitee.created payload shape:
-  // { event: "invitee.created", payload: { event_type, event, invitee } }
-  const p          = body.payload        || {};
-  const invitee    = p.invitee           || {};
-  const event      = p.event             || {};
-  const eventType  = p.event_type        || {};
-  const qas        = invitee.questions_and_answers || [];
+  const p              = body.payload           || {};
+  const scheduledEvent = p.scheduled_event      || {};
+  const location       = scheduledEvent.location || {};
+  const qas            = p.questions_and_answers || [];
 
-  const name       = invitee.name        || null;
-  const email      = invitee.email       || null;
-  const eventName  = eventType.name      || event.name || null;
-  const startTime  = event.start_time    || null;
+  const name             = p.name                    || null;
+  const email            = p.email                   || null;
+  const timezone         = p.timezone                || null;
+  const eventName        = scheduledEvent.name       || null;
+  const startTime        = scheduledEvent.start_time || null;
+  const endTime          = scheduledEvent.end_time   || null;
+  const meetingLink      = location.join_url         || null;
 
-  const company          = findAnswer(qas, ['company', 'business', 'organisation', 'organization']);
-  const website          = findAnswer(qas, ['website', 'url', 'site']);
-  const biggestChallenge = findAnswer(qas, ['challenge', 'problem', 'help', 'struggling']);
+  const company          = findAnswer(qas, ['company']);
+  const website          = findAnswer(qas, ['website', 'social']);
+  const biggestChallenge = findAnswer(qas, ['help', 'challenge']);
 
   // --- Log everything -------------------------------------------------------
   console.log('[Calendly] New booking:', JSON.stringify({
     name,
     email,
+    timezone,
     eventName,
     startTime,
+    endTime,
+    meetingLink,
     company,
     website,
     biggestChallenge,
