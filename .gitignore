@@ -23,3 +23,5 @@ plugins/
 
 # Logs
 *.log
+node_modules/
+.env
