@@ -1,6 +1,8 @@
 'use strict';
 
-const crypto = require('crypto');
+const crypto  = require('crypto');
+const path    = require('path');
+const { google } = require('googleapis');
 
 // Vercel: skip body parsing so we receive the raw stream for HMAC verification
 module.exports = async function handler(req, res) {
@@ -13,7 +15,6 @@ module.exports = async function handler(req, res) {
   const rawBody = await readRawBody(req);
 
   // --- Signature verification temporarily disabled -------------------------
-  // TODO: re-enable before production
   console.log('[Calendly] Signature check skipped (disabled for testing)');
 
   // --- Parse JSON payload --------------------------------------------------
@@ -45,28 +46,18 @@ module.exports = async function handler(req, res) {
   const website          = findAnswer(qas, ['website', 'social']);
   const biggestChallenge = findAnswer(qas, ['help', 'challenge']);
 
-  // --- Log everything -------------------------------------------------------
   console.log('[Calendly] New booking:', JSON.stringify({
-    name,
-    email,
-    timezone,
-    eventName,
-    startTime,
-    endTime,
-    meetingLink,
-    company,
-    website,
-    biggestChallenge,
-    allQAs: qas,
+    name, email, timezone, eventName, startTime, endTime,
+    meetingLink, company, website, biggestChallenge, allQAs: qas,
   }, null, 2));
 
-  // --- Research client in the background -----------------------------------
+  // --- Research + doc + notification in background -------------------------
   // Fire-and-forget: don't await so we respond to Calendly immediately.
-  researchClient({ name, company, website, biggestChallenge }).catch(function (err) {
-    console.error('[Calendly] researchClient failed:', err.message);
-  });
+  processBooking({ name, email, company, website, biggestChallenge, startTime, meetingLink })
+    .catch(function (err) {
+      console.error('[processBooking] Failed:', err.message);
+    });
 
-  // --- Done -----------------------------------------------------------------
   return res.status(200).json({ received: true });
 };
 
@@ -76,7 +67,30 @@ module.exports.config = {
 
 // ---------------------------------------------------------------------------
 
-// Collect the full request body as a UTF-8 string from the readable stream
+async function processBooking({ name, email, company, website, biggestChallenge, startTime, meetingLink }) {
+  // 1. Research the client via Claude
+  const prepNote = await researchClient({ name, company, website, biggestChallenge });
+  if (!prepNote) return;
+
+  // 2. Create Google Doc and share with user
+  let docUrl = null;
+  try {
+    const doc = await createGoogleDoc({ name, startTime, prepNote });
+    docUrl = doc ? doc.docUrl : null;
+  } catch (err) {
+    console.error('[Google] Doc creation failed:', err.message);
+  }
+
+  // 3. Send Telegram notification
+  try {
+    await sendTelegramNotification({ name, email, company, startTime, meetingLink, prepNote, docUrl });
+  } catch (err) {
+    console.error('[Telegram] Notification failed:', err.message);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Read raw request body from a Node readable stream
 function readRawBody(req) {
   return new Promise(function (resolve, reject) {
     var chunks = [];
@@ -86,24 +100,16 @@ function readRawBody(req) {
   });
 }
 
-// Extract a value from "t=123,v1=abc" style header strings
-// parseHeaderPart("t=123,v1=abc", "v1=") => "abc"
-function parseHeaderPart(header, prefix) {
-  var part = header.split(',').find(function (s) { return s.trim().startsWith(prefix); });
-  return part ? part.trim().slice(prefix.length) : null;
-}
-
 // ---------------------------------------------------------------------------
-// Fetch the client's website and use Claude to generate a meeting prep note.
+// Fetch client website and use Claude to generate a 7-section meeting prep note
 async function researchClient({ name, company, website, biggestChallenge }) {
   if (!website) {
     console.log('[Research] No website provided — skipping research.');
-    return;
+    return null;
   }
 
   console.log('[Research] Fetching website:', website);
 
-  // Normalise URL
   var url = website.startsWith('http') ? website : 'https://' + website;
 
   var siteContent = '';
@@ -114,7 +120,6 @@ async function researchClient({ name, company, website, biggestChallenge }) {
     });
     if (siteRes.ok) {
       var html = await siteRes.text();
-      // Strip tags, compress whitespace, cap at ~4000 chars
       siteContent = html
         .replace(/<script[\s\S]*?<\/script>/gi, '')
         .replace(/<style[\s\S]*?<\/style>/gi, '')
@@ -132,7 +137,7 @@ async function researchClient({ name, company, website, biggestChallenge }) {
   var apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     console.warn('[Research] ANTHROPIC_API_KEY not set — skipping Claude call.');
-    return;
+    return null;
   }
 
   var systemPrompt = [
@@ -179,19 +184,198 @@ async function researchClient({ name, company, website, biggestChallenge }) {
   if (!claudeRes.ok) {
     var errText = await claudeRes.text();
     console.error('[Research] Claude API error:', claudeRes.status, errText);
-    return;
+    return null;
   }
 
   var claudeBody = await claudeRes.json();
-  var prepNote   = claudeBody.content && claudeBody.content[0] && claudeBody.content[0].text
+  var prepNote = claudeBody.content && claudeBody.content[0] && claudeBody.content[0].text
     ? claudeBody.content[0].text
-    : '(No response)';
+    : null;
 
-  console.log('[Research] Prep note for', name, ':\n\n' + prepNote);
+  if (prepNote) {
+    console.log('[Research] Prep note for', name, ':\n\n' + prepNote);
+  }
+
+  return prepNote;
 }
 
 // ---------------------------------------------------------------------------
+// Create a Google Doc with the prep note and share it with the configured email
+async function createGoogleDoc({ name, startTime, prepNote }) {
+  var clientId     = process.env.GOOGLE_CLIENT_ID;
+  var clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+  var refreshToken = process.env.GOOGLE_REFRESH_TOKEN;
 
+  if (!clientId || !clientSecret || !refreshToken) {
+    console.warn('[Google] GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET / GOOGLE_REFRESH_TOKEN not set — skipping doc creation.');
+    return null;
+  }
+
+  // Build OAuth2 client with stored refresh token
+  var auth = new google.auth.OAuth2(clientId, clientSecret);
+  auth.setCredentials({ refresh_token: refreshToken });
+
+  var docs  = google.docs({ version: 'v1', auth });
+  var drive = google.drive({ version: 'v3', auth });
+
+  // Format the date for the document title
+  var dateStr = startTime
+    ? new Date(startTime).toLocaleDateString('en-NZ', {
+        day: '2-digit', month: 'short', year: 'numeric'
+      })
+    : new Date().toLocaleDateString('en-NZ', {
+        day: '2-digit', month: 'short', year: 'numeric'
+      });
+
+  var title = 'Prep Note — ' + (name || 'Unknown') + ' — ' + dateStr;
+
+  // ---- Create the document -------------------------------------------------
+  var createRes = await docs.documents.create({ requestBody: { title } });
+  var docId = createRes.data.documentId;
+  console.log('[Google] Document created:', docId);
+
+  // ---- Build the full content (header block + prep note) ------------------
+  var headerLines = [
+    'CLIENT PREP NOTE',
+    '=' .repeat(60),
+    '',
+    'Client:   ' + (name    || 'Unknown'),
+    'Meeting:  ' + (startTime ? new Date(startTime).toLocaleString('en-NZ') : 'TBC'),
+    '',
+    '='.repeat(60),
+    '',
+    '',
+  ];
+  var fullContent = headerLines.join('\n') + prepNote;
+
+  // ---- Insert content at index 1 (after the title paragraph) -------------
+  await docs.documents.batchUpdate({
+    documentId: docId,
+    requestBody: {
+      requests: [
+        {
+          insertText: {
+            location: { index: 1 },
+            text: fullContent,
+          },
+        },
+      ],
+    },
+  });
+  console.log('[Google] Content inserted into document');
+
+  // ---- Share with the consultancy email -----------------------------------
+  var shareEmail = process.env.GOOGLE_SHARE_EMAIL || 'info@realmissai.com';
+  await drive.permissions.create({
+    fileId: docId,
+    sendNotificationEmail: false,
+    requestBody: {
+      type:         'user',
+      role:         'writer',
+      emailAddress: shareEmail,
+    },
+  });
+  console.log('[Google] Document shared with', shareEmail);
+
+  var docUrl = 'https://docs.google.com/document/d/' + docId + '/edit';
+  console.log('[Google] Doc URL:', docUrl);
+
+  return { docId, docUrl, title };
+}
+
+// ---------------------------------------------------------------------------
+// Send a Telegram notification to the configured bot
+async function sendTelegramNotification({ name, email, company, startTime, meetingLink, prepNote, docUrl }) {
+  var token  = process.env.TELEGRAM_BOT_TOKEN;
+  var chatId = process.env.TELEGRAM_CHAT_ID;
+
+  if (!token || !chatId) {
+    console.warn('[Telegram] TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID not set — skipping notification.');
+    return;
+  }
+
+  var dateStr = startTime
+    ? new Date(startTime).toLocaleString('en-NZ', {
+        weekday: 'short', day: '2-digit', month: 'short',
+        year: 'numeric', hour: '2-digit', minute: '2-digit'
+      })
+    : 'TBC';
+
+  // ---- Message 1: booking summary + doc link ------------------------------
+  var summaryLines = [
+    '🗓 <b>New Booking</b>',
+    '',
+    '<b>Client:</b> ' + escapeHtml(name    || 'Unknown'),
+    '<b>Email:</b>  ' + escapeHtml(email   || 'Unknown'),
+    '<b>Company:</b> ' + escapeHtml(company || 'Unknown'),
+    '<b>Meeting:</b> ' + escapeHtml(dateStr),
+    meetingLink ? '<b>Join:</b> ' + meetingLink : '',
+    '',
+    docUrl
+      ? '📄 <b>Prep Note:</b> <a href="' + docUrl + '">Open in Google Docs</a>'
+      : '⚠️ Prep note generated but Google Doc creation failed — see logs.',
+  ].filter(Boolean);
+
+  await postTelegramMessage(token, chatId, summaryLines.join('\n'));
+
+  // ---- Message 2: full prep note (split into ≤4000-char chunks) ----------
+  if (prepNote) {
+    var header = '🧠 <b>Prep Note — ' + escapeHtml(name || 'Unknown') + '</b>\n\n';
+    var chunks = splitIntoChunks(header + escapeHtml(prepNote), 4000);
+    for (var i = 0; i < chunks.length; i++) {
+      await postTelegramMessage(token, chatId, chunks[i]);
+    }
+  }
+}
+
+// Send a single Telegram HTML message
+async function postTelegramMessage(token, chatId, text) {
+  var res = await fetch('https://api.telegram.org/bot' + token + '/sendMessage', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chat_id:                  chatId,
+      text:                     text,
+      parse_mode:               'HTML',
+      disable_web_page_preview: false,
+    }),
+  });
+
+  if (!res.ok) {
+    var errBody = await res.text();
+    console.error('[Telegram] sendMessage failed:', res.status, errBody);
+  } else {
+    console.log('[Telegram] Message sent successfully');
+  }
+}
+
+// Split text into chunks that don't exceed maxLen, breaking at newlines
+function splitIntoChunks(text, maxLen) {
+  if (text.length <= maxLen) return [text];
+  var chunks = [];
+  while (text.length > 0) {
+    if (text.length <= maxLen) {
+      chunks.push(text);
+      break;
+    }
+    // Try to break at a newline within the limit
+    var breakAt = text.lastIndexOf('\n', maxLen);
+    if (breakAt < 1) breakAt = maxLen;
+    chunks.push(text.slice(0, breakAt));
+    text = text.slice(breakAt).replace(/^\n/, '');
+  }
+  return chunks;
+}
+
+// Minimal HTML escaping for Telegram's HTML parse mode
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+// ---------------------------------------------------------------------------
 // Find the answer to the first question whose text includes any of the keywords
 function findAnswer(qas, keywords) {
   var match = qas.find(function (qa) {

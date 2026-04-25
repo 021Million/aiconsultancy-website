@@ -25,3 +25,5 @@ plugins/
 *.log
 node_modules/
 .env
+google-credentials.json
+client_secret_*.json
