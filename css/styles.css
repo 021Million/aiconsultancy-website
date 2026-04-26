@@ -2428,12 +2428,6 @@ button { cursor: pointer; font-family: inherit; }
 
 .evo-item--now { opacity: 1; }
 
-.evo-item__figure {
-  font-size: 2rem;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
 .evo-item__node { flex-shrink: 0; }
 
 .evo-item__circle {
@@ -2526,18 +2520,12 @@ button { cursor: pointer; font-family: inherit; }
     gap: 0;
   }
 
-  .evo-item__figure {
-    font-size: 2.5rem;
-    margin-bottom: var(--sp2);
+  .evo-item__node {
     order: 1;
   }
 
-  .evo-item__node {
-    order: 2;
-  }
-
   .evo-item__content {
-    order: 3;
+    order: 2;
     margin-top: var(--sp2);
   }
 }
