@@ -1,13 +1,10 @@
 'use strict';
 
-/* ============================================================
-   AI Consultancy — main.js
-   Hamburger menu, industries dropdown, scroll animations.
-   ============================================================ */
-
 (function () {
 
-  /* --- Hamburger nav toggle --- */
+  /* ============================================================
+     NAV: hamburger toggle
+     ============================================================ */
   var hamburger = document.querySelector('.nav__hamburger');
   var navLinks  = document.getElementById('nav-links');
 
@@ -17,7 +14,6 @@
       hamburger.setAttribute('aria-expanded', String(isOpen));
     });
 
-    /* Close nav when a link is clicked */
     navLinks.addEventListener('click', function (e) {
       if (e.target.tagName === 'A') {
         navLinks.classList.remove('is-open');
@@ -31,7 +27,9 @@
   }
 
 
-  /* --- Industries dropdown toggle (mobile) --- */
+  /* ============================================================
+     NAV: industries dropdown
+     ============================================================ */
   var dropdownToggle = document.querySelector('.nav__dropdown-toggle');
   var dropdown       = document.getElementById('industries-menu');
 
@@ -50,9 +48,9 @@
   }
 
 
-  /* --- Scroll-triggered animations --- */
-
-  /* Stagger delay for child elements */
+  /* ============================================================
+     SCROLL ANIMATIONS: stagger delays + IntersectionObserver
+     ============================================================ */
   document.querySelectorAll('[data-stagger]').forEach(function (container) {
     Array.from(container.children).forEach(function (child, i) {
       child.style.transitionDelay = (i * 0.08) + 's';
@@ -75,6 +73,150 @@
   document.querySelectorAll('[data-stagger]').forEach(function (container) {
     Array.from(container.children).forEach(function (child) {
       animObserver.observe(child);
+    });
+  });
+
+
+  /* ============================================================
+     HERO WORKFLOW PANEL: cycle steps through active → done states
+     ============================================================ */
+  var steps = Array.from(document.querySelectorAll('[data-ws]'));
+  var stateLabels = ['Just now', 'In progress...', 'In progress...', 'Generating...', 'Generating...'];
+  var doneLabels  = ['Received', 'Drafted', 'Sent', 'Ready', 'Created'];
+
+  if (steps.length) {
+    var currentStep = 0;
+
+    function advanceStep() {
+      if (currentStep < steps.length) {
+        var step = steps[currentStep];
+        var stateEl = step.querySelector('.workflow-step__state');
+
+        /* Mark previous as done, current as active */
+        if (currentStep > 0) {
+          steps[currentStep - 1].classList.remove('is-active');
+          steps[currentStep - 1].classList.add('is-done');
+          if (steps[currentStep - 1].querySelector('.workflow-step__state')) {
+            steps[currentStep - 1].querySelector('.workflow-step__state').textContent = doneLabels[currentStep - 1];
+          }
+        }
+
+        step.classList.add('is-active');
+        if (stateEl) stateEl.textContent = stateLabels[currentStep];
+        currentStep++;
+      } else {
+        /* All done — pause, then reset */
+        /* Mark last step done */
+        steps[steps.length - 1].classList.remove('is-active');
+        steps[steps.length - 1].classList.add('is-done');
+        if (steps[steps.length - 1].querySelector('.workflow-step__state')) {
+          steps[steps.length - 1].querySelector('.workflow-step__state').textContent = doneLabels[steps.length - 1];
+        }
+
+        setTimeout(function () {
+          steps.forEach(function (s, i) {
+            s.classList.remove('is-active', 'is-done');
+            var stateEl = s.querySelector('.workflow-step__state');
+            if (stateEl) stateEl.textContent = i === 0 ? 'Waiting' : 'Pending';
+          });
+          currentStep = 0;
+        }, 2500);
+      }
+    }
+
+    /* Start cycling: advance one step every 1.8 seconds */
+    setInterval(advanceStep, 1800);
+    /* Kick off first step after a short delay */
+    setTimeout(advanceStep, 800);
+  }
+
+
+  /* ============================================================
+     FLIP CARDS: click + keyboard toggle
+     ============================================================ */
+  document.querySelectorAll('.flip-card').forEach(function (card) {
+    function toggleFlip() {
+      var isFlipped = card.classList.toggle('is-flipped');
+      card.setAttribute('aria-pressed', String(isFlipped));
+    }
+
+    card.addEventListener('click', toggleFlip);
+
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleFlip();
+      }
+    });
+  });
+
+
+  /* ============================================================
+     WORKFLOW FLOW: light up nodes sequentially on scroll
+     ============================================================ */
+  var flowSection = document.getElementById('workflowFlow');
+
+  if (flowSection) {
+    var wfNodes      = Array.from(flowSection.querySelectorAll('[data-wf-node]'));
+    var wfConnectors = Array.from(flowSection.querySelectorAll('[data-wf-connector]'));
+    var flowFired    = false;
+
+    function lightUpFlow() {
+      if (flowFired) return;
+      flowFired = true;
+
+      wfNodes.forEach(function (node, i) {
+        setTimeout(function () {
+          node.classList.add('is-lit');
+          if (wfConnectors[i]) {
+            setTimeout(function () {
+              wfConnectors[i].classList.add('is-lit');
+            }, 300);
+          }
+        }, i * 700);
+      });
+    }
+
+    var flowObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          lightUpFlow();
+          flowObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    flowObserver.observe(flowSection);
+  }
+
+
+  /* ============================================================
+     FAQ ACCORDION: click to expand / collapse
+     ============================================================ */
+  document.querySelectorAll('.faq-item__trigger').forEach(function (trigger) {
+    trigger.addEventListener('click', function () {
+      var bodyId = trigger.getAttribute('aria-controls');
+      var body   = document.getElementById(bodyId);
+      var isOpen = trigger.getAttribute('aria-expanded') === 'true';
+
+      /* Close all other items */
+      document.querySelectorAll('.faq-item__trigger').forEach(function (t) {
+        if (t !== trigger) {
+          t.setAttribute('aria-expanded', 'false');
+          var otherBodyId = t.getAttribute('aria-controls');
+          var otherBody   = document.getElementById(otherBodyId);
+          if (otherBody) otherBody.style.maxHeight = '0';
+        }
+      });
+
+      /* Toggle this item */
+      if (isOpen) {
+        trigger.setAttribute('aria-expanded', 'false');
+        body.style.maxHeight = '0';
+      } else {
+        trigger.setAttribute('aria-expanded', 'true');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      }
     });
   });
 

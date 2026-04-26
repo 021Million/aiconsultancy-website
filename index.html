@@ -4,15 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Consultancy | Practical AI for Business</title>
-  <meta name="description" content="Practical AI implementation for businesses that want to work smarter. AI chatbots, workflow automation, custom assistants, and AI training ,  built around your operations.">
+  <meta name="description" content="I help business owners turn repetitive admin, follow-ups, quoting, research, and content into simple AI-powered workflows. Practical AI, done for you.">
   <meta property="og:title" content="AI Consultancy | Practical AI for Business">
-  <meta property="og:description" content="Practical AI implementation for businesses that want to work smarter. Done-for-you setup, privacy-first, measurable results.">
+  <meta property="og:description" content="Find the first thing AI should take off your plate. Practical AI implementation for businesses that want to work smarter.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://aiconsultancy.co.nz">
-  <meta property="og:image" content="https://aiconsultancy.co.nz/assets/images/og-image.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AI Consultancy | Practical AI for Business">
-  <meta name="twitter:description" content="Practical AI implementation for businesses that want to work smarter.">
   <link rel="canonical" href="https://aiconsultancy.co.nz">
   <link rel="stylesheet" href="css/styles.css">
   <script type="application/ld+json">
@@ -21,27 +17,22 @@
     "@type": "Organization",
     "name": "AI Consultancy",
     "url": "https://aiconsultancy.co.nz",
-    "description": "Practical AI implementation for businesses ,  chatbots, workflow automation, custom assistants, and AI training.",
+    "description": "Practical AI implementation for businesses. AI consulting, workflow automation, custom tools, and training.",
     "areaServed": {"@type": "Place", "name": "Worldwide"},
-    "serviceType": ["AI Consulting", "Workflow Automation", "Custom AI Tools", "AI Training", "AI Chatbots"]
+    "serviceType": ["AI Consulting", "Workflow Automation", "Custom AI Tools", "AI Training"]
   }
   </script>
 </head>
 <body>
 
-  <!-- ============================================================
-       NAVIGATION
-       ============================================================ -->
   <header>
     <nav class="nav" aria-label="Main navigation">
       <div class="container">
         <div class="nav__inner">
           <a href="/" class="nav__logo">AI Consultancy</a>
-
           <button class="nav__hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-links">
             <span></span><span></span><span></span>
           </button>
-
           <ul class="nav__links" id="nav-links" role="list">
             <li><a href="/">Home</a></li>
             <li class="nav__has-dropdown">
@@ -74,309 +65,350 @@
     <!-- ============================================================
          HERO
          ============================================================ -->
-    <section class="hero">
+    <section class="hero-v2">
       <div class="container">
-        <div class="hero__content">
-          <span class="section-label hero-anim hero-anim--1">AI Consultancy</span>
-          <h1 class="hero__headline hero-anim hero-anim--2">Practical AI for businesses that want to work smarter.</h1>
-          <p class="hero__sub hero-anim hero-anim--3">We help businesses implement AI tools, automations, and assistants that reduce admin, improve response times, and create measurable results. Done for you, built around how your business actually works.</p>
-          <div class="hero__cta-group hero-anim hero-anim--4">
-            <a href="https://calendly.com/aiconsulting-keira/30min" class="btn btn--large" target="_blank" rel="noopener noreferrer">Book a free call</a>
-            <a href="#how-ai-helps" class="btn btn--ghost btn--large">See how AI can help</a>
+        <div class="hero-v2__inner">
+
+          <div class="hero-v2__text">
+            <div class="hero-v2__eyebrow hero-anim hero-anim--1">
+              <span class="hero-v2__eyebrow-dot"></span>
+              Practical AI for Business
+            </div>
+            <h1 class="hero-v2__headline hero-anim hero-anim--2">Find the first thing AI should take off your plate.</h1>
+            <p class="hero-v2__sub hero-anim hero-anim--3">I help business owners turn repetitive admin, follow-ups, quoting, research, and content into simple AI-powered workflows.</p>
+            <div class="hero-v2__cta-group hero-anim hero-anim--4">
+              <a href="https://calendly.com/aiconsulting-keira/30min" class="btn-pill btn-pill--primary" target="_blank" rel="noopener noreferrer">Find My AI Opportunity</a>
+              <a href="#workflow-example" class="btn-pill btn-pill--ghost">See Examples</a>
+            </div>
           </div>
+
+          <div class="hero-v2__visual hero-anim hero-anim--3" aria-hidden="true">
+            <div class="workflow-panel">
+              <div class="workflow-panel__header">
+                <div>
+                  <p class="workflow-panel__title">Your workflow, automated</p>
+                  <p class="workflow-panel__subtitle">Running in the background</p>
+                </div>
+                <div class="workflow-panel__live">
+                  <div class="workflow-panel__live-dot"></div>
+                  <span>Live</span>
+                </div>
+              </div>
+              <div class="workflow-panel__steps" id="workflowSteps">
+                <div class="workflow-step" data-ws>
+                  <div class="workflow-step__icon">
+                    <svg class="workflow-step__check" viewBox="0 0 14 14" fill="none" aria-hidden="true"><polyline points="2,7 6,11 12,3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div class="workflow-step__pulse"></div>
+                  </div>
+                  <div class="workflow-step__info">
+                    <span class="workflow-step__label">Enquiry received</span>
+                    <span class="workflow-step__state">Waiting</span>
+                  </div>
+                  <span class="workflow-step__badge">New</span>
+                </div>
+                <div class="workflow-step" data-ws>
+                  <div class="workflow-step__icon">
+                    <svg class="workflow-step__check" viewBox="0 0 14 14" fill="none" aria-hidden="true"><polyline points="2,7 6,11 12,3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div class="workflow-step__pulse"></div>
+                  </div>
+                  <div class="workflow-step__info">
+                    <span class="workflow-step__label">Quote drafted</span>
+                    <span class="workflow-step__state">Pending</span>
+                  </div>
+                  <span class="workflow-step__badge">Auto</span>
+                </div>
+                <div class="workflow-step" data-ws>
+                  <div class="workflow-step__icon">
+                    <svg class="workflow-step__check" viewBox="0 0 14 14" fill="none" aria-hidden="true"><polyline points="2,7 6,11 12,3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div class="workflow-step__pulse"></div>
+                  </div>
+                  <div class="workflow-step__info">
+                    <span class="workflow-step__label">Follow-up sent</span>
+                    <span class="workflow-step__state">Pending</span>
+                  </div>
+                  <span class="workflow-step__badge">Auto</span>
+                </div>
+                <div class="workflow-step" data-ws>
+                  <div class="workflow-step__icon">
+                    <svg class="workflow-step__check" viewBox="0 0 14 14" fill="none" aria-hidden="true"><polyline points="2,7 6,11 12,3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div class="workflow-step__pulse"></div>
+                  </div>
+                  <div class="workflow-step__info">
+                    <span class="workflow-step__label">Meeting brief ready</span>
+                    <span class="workflow-step__state">Pending</span>
+                  </div>
+                  <span class="workflow-step__badge">AI</span>
+                </div>
+                <div class="workflow-step" data-ws>
+                  <div class="workflow-step__icon">
+                    <svg class="workflow-step__check" viewBox="0 0 14 14" fill="none" aria-hidden="true"><polyline points="2,7 6,11 12,3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div class="workflow-step__pulse"></div>
+                  </div>
+                  <div class="workflow-step__info">
+                    <span class="workflow-step__label">Report created</span>
+                    <span class="workflow-step__state">Pending</span>
+                  </div>
+                  <span class="workflow-step__badge">Done</span>
+                </div>
+              </div>
+              <div class="workflow-panel__footer">
+                <span class="workflow-panel__footer-text">Powered by AI Consultancy</span>
+                <span class="workflow-panel__footer-stat">5 tasks automated today</span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
 
 
     <!-- ============================================================
-         TECHNOLOGY ERAS TIMELINE
+         BUSINESS FLIP CARDS
          ============================================================ -->
-    <section class="eras section section--alt" aria-labelledby="eras-heading">
+    <section class="flip-section section">
       <div class="container">
-        <span class="section-label" data-animate>We've seen this before</span>
-        <h2 class="eras__heading" id="eras-heading" data-animate>Every major wave of technology changed how businesses worked.</h2>
-        <p class="eras__intro-text" data-animate>The telephone changed communication. The internet changed access. Social media changed attention. AI changes capability. Each time, businesses that moved early pulled ahead ,  and stayed there.</p>
+        <span class="section-label-v2" data-animate>What could AI help with?</span>
+        <h2 class="section-heading-v2" data-animate>Built for your kind of business.</h2>
+        <p class="flip-section__intro" data-animate>Tap a card to see what AI could look like in your world.</p>
 
-        <div class="eras__timeline" data-stagger>
+        <div class="flip-grid" data-stagger>
 
-          <div class="eras__item">
-            <div class="eras__icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-              </svg>
-            </div>
-            <div class="eras__content">
-              <h3 class="eras__name">Telephone boom</h3>
-              <p class="eras__phrase">How we connected</p>
-            </div>
-          </div>
-
-          <div class="eras__item">
-            <div class="eras__icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="2" y1="12" x2="22" y2="12"/>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-              </svg>
-            </div>
-            <div class="eras__content">
-              <h3 class="eras__name">Internet boom</h3>
-              <p class="eras__phrase">How we accessed information</p>
+          <div class="flip-card" role="button" tabindex="0" aria-pressed="false" aria-label="Tradies - tap to flip">
+            <div class="flip-card__inner">
+              <div class="flip-card__front">
+                <span class="flip-card__icon">🔧</span>
+                <h3 class="flip-card__type">Tradies</h3>
+                <p class="flip-card__pain">Quoting, scheduling, job notes, and follow-ups taking too long?</p>
+                <span class="flip-card__hint">Tap to see how AI helps</span>
+              </div>
+              <div class="flip-card__back">
+                <span class="flip-card__back-label">With AI</span>
+                <h3 class="flip-card__back-type">Tradies</h3>
+                <p class="flip-card__back-desc">Draft quotes faster, reply to enquiries automatically, send payment reminders, and keep job notes organised without lifting a finger.</p>
+              </div>
             </div>
           </div>
 
-          <div class="eras__item">
-            <div class="eras__icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
-                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-              </svg>
-            </div>
-            <div class="eras__content">
-              <h3 class="eras__name">Social media boom</h3>
-              <p class="eras__phrase">How we distributed attention</p>
-            </div>
-          </div>
-
-          <div class="eras__item eras__item--active">
-            <div class="eras__icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2l1.5 4h4l-3.5 2.5 1.5 4-3.5-2.5L8.5 12.5l1.5-4L6.5 6h4z"/>
-                <path d="M19 15l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z"/>
-                <path d="M4 16l.7 1.8L6.5 18.5l-1.8.7L4 21l-.7-1.8L1.5 18.5l1.8-.7z"/>
-              </svg>
-            </div>
-            <div class="eras__content">
-              <span class="eras__now-badge">Now</span>
-              <h3 class="eras__name">AI boom</h3>
-              <p class="eras__phrase">How we multiply capability</p>
+          <div class="flip-card" role="button" tabindex="0" aria-pressed="false" aria-label="Consultants - tap to flip">
+            <div class="flip-card__inner">
+              <div class="flip-card__front">
+                <span class="flip-card__icon">💼</span>
+                <h3 class="flip-card__type">Consultants</h3>
+                <p class="flip-card__pain">Research, proposals, and client prep eating your billable hours?</p>
+                <span class="flip-card__hint">Tap to see how AI helps</span>
+              </div>
+              <div class="flip-card__back">
+                <span class="flip-card__back-label">With AI</span>
+                <h3 class="flip-card__back-type">Consultants</h3>
+                <p class="flip-card__back-desc">Auto-generate meeting briefs, draft proposals from templates, summarise research, and follow up clients consistently.</p>
+              </div>
             </div>
           </div>
 
-        </div>
-
-        <p class="eras__conclusion" data-animate>This is not a technical shift. It is a capability shift. Businesses that move now will be able to do more with the same team ,  and the gap will compound over time.</p>
-        <a href="https://calendly.com/aiconsulting-keira/30min" class="btn" target="_blank" rel="noopener noreferrer" data-animate>Book a free call</a>
-      </div>
-    </section>
-
-
-    <!-- ============================================================
-         HOW AI HELPS
-         ============================================================ -->
-    <section class="section" id="how-ai-helps" aria-labelledby="helps-heading">
-      <div class="container">
-        <span class="section-label" data-animate>How AI helps</span>
-        <h2 class="section-heading" id="helps-heading" data-animate>Six ways AI creates real value in your business.</h2>
-        <p class="helps__intro" data-animate>Not hype. Not theory. These are the practical outcomes businesses experience when AI is implemented well.</p>
-
-        <div class="helps__grid" data-stagger>
-          <div class="helps__card">
-            <div class="helps__icon" aria-hidden="true">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div class="flip-card" role="button" tabindex="0" aria-pressed="false" aria-label="Real Estate - tap to flip">
+            <div class="flip-card__inner">
+              <div class="flip-card__front">
+                <span class="flip-card__icon">🏠</span>
+                <h3 class="flip-card__type">Real Estate</h3>
+                <p class="flip-card__pain">Chasing leads, writing listings, and following up buyers manually?</p>
+                <span class="flip-card__hint">Tap to see how AI helps</span>
+              </div>
+              <div class="flip-card__back">
+                <span class="flip-card__back-label">With AI</span>
+                <h3 class="flip-card__back-type">Real Estate</h3>
+                <p class="flip-card__back-desc">Qualify leads 24/7, auto-draft property descriptions, send open home follow-ups, and keep buyers warm automatically.</p>
+              </div>
             </div>
-            <h3 class="helps__title">Save time on repetitive tasks</h3>
-            <p class="helps__desc">Automate the work that takes hours but adds little value. Free your team to focus on what actually matters.</p>
           </div>
 
-          <div class="helps__card">
-            <div class="helps__icon" aria-hidden="true">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <div class="flip-card" role="button" tabindex="0" aria-pressed="false" aria-label="Clinics - tap to flip">
+            <div class="flip-card__inner">
+              <div class="flip-card__front">
+                <span class="flip-card__icon">🏥</span>
+                <h3 class="flip-card__type">Clinics</h3>
+                <p class="flip-card__pain">Patient enquiries and appointment admin overwhelming your front desk?</p>
+                <span class="flip-card__hint">Tap to see how AI helps</span>
+              </div>
+              <div class="flip-card__back">
+                <span class="flip-card__back-label">With AI</span>
+                <h3 class="flip-card__back-type">Clinics</h3>
+                <p class="flip-card__back-desc">Answer patient FAQs around the clock, automate appointment reminders, reduce no-shows, and free up reception for the moments that matter.</p>
+              </div>
             </div>
-            <h3 class="helps__title">Reduce admin overload</h3>
-            <p class="helps__desc">Less time in inboxes, spreadsheets, and manual data entry. More time doing the work your business is built on.</p>
           </div>
 
-          <div class="helps__card">
-            <div class="helps__icon" aria-hidden="true">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <div class="flip-card" role="button" tabindex="0" aria-pressed="false" aria-label="Coaches - tap to flip">
+            <div class="flip-card__inner">
+              <div class="flip-card__front">
+                <span class="flip-card__icon">🎯</span>
+                <h3 class="flip-card__type">Coaches</h3>
+                <p class="flip-card__pain">Client onboarding, content creation, and admin taking time away from coaching?</p>
+                <span class="flip-card__hint">Tap to see how AI helps</span>
+              </div>
+              <div class="flip-card__back">
+                <span class="flip-card__back-label">With AI</span>
+                <h3 class="flip-card__back-type">Coaches</h3>
+                <p class="flip-card__back-desc">Automate intake, create content from your sessions, follow up clients consistently, and systemise your onboarding so you can scale.</p>
+              </div>
             </div>
-            <h3 class="helps__title">Respond faster to customers</h3>
-            <p class="helps__desc">AI handles first responses, FAQs, and bookings 24/7 ,  without anyone on your team needing to be available.</p>
           </div>
 
-          <div class="helps__card">
-            <div class="helps__icon" aria-hidden="true">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          <div class="flip-card" role="button" tabindex="0" aria-pressed="false" aria-label="Ecommerce - tap to flip">
+            <div class="flip-card__inner">
+              <div class="flip-card__front">
+                <span class="flip-card__icon">🛍️</span>
+                <h3 class="flip-card__type">Ecommerce</h3>
+                <p class="flip-card__pain">Customer questions, abandoned carts, and product copy a constant grind?</p>
+                <span class="flip-card__hint">Tap to see how AI helps</span>
+              </div>
+              <div class="flip-card__back">
+                <span class="flip-card__back-label">With AI</span>
+                <h3 class="flip-card__back-type">Ecommerce</h3>
+                <p class="flip-card__back-desc">Reply to customer enquiries instantly, recover carts with automated follow-ups, and generate compelling product copy at scale.</p>
+              </div>
             </div>
-            <h3 class="helps__title">Organise internal knowledge</h3>
-            <p class="helps__desc">Stop re-answering the same questions. Build a knowledge system your team can actually search and use ,  instantly.</p>
           </div>
 
-          <div class="helps__card">
-            <div class="helps__icon" aria-hidden="true">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <div class="flip-card" role="button" tabindex="0" aria-pressed="false" aria-label="Hospitality - tap to flip">
+            <div class="flip-card__inner">
+              <div class="flip-card__front">
+                <span class="flip-card__icon">🍽️</span>
+                <h3 class="flip-card__type">Hospitality</h3>
+                <p class="flip-card__pain">Bookings, reviews, guest enquiries, and comms consuming your team?</p>
+                <span class="flip-card__hint">Tap to see how AI helps</span>
+              </div>
+              <div class="flip-card__back">
+                <span class="flip-card__back-label">With AI</span>
+                <h3 class="flip-card__back-type">Hospitality</h3>
+                <p class="flip-card__back-desc">Handle guest enquiries automatically, gather reviews after every visit, and streamline your front-of-house communications with ease.</p>
+              </div>
             </div>
-            <h3 class="helps__title">Improve team productivity</h3>
-            <p class="helps__desc">Help your team do more with AI alongside the tools they already use ,  without adding headcount or complexity.</p>
           </div>
 
-          <div class="helps__card">
-            <div class="helps__icon" aria-hidden="true">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <div class="flip-card" role="button" tabindex="0" aria-pressed="false" aria-label="Admin Teams - tap to flip">
+            <div class="flip-card__inner">
+              <div class="flip-card__front">
+                <span class="flip-card__icon">📋</span>
+                <h3 class="flip-card__type">Admin Teams</h3>
+                <p class="flip-card__pain">Emails, data entry, meeting notes, and documents eating your whole day?</p>
+                <span class="flip-card__hint">Tap to see how AI helps</span>
+              </div>
+              <div class="flip-card__back">
+                <span class="flip-card__back-label">With AI</span>
+                <h3 class="flip-card__back-type">Admin Teams</h3>
+                <p class="flip-card__back-desc">Process emails intelligently, summarise meetings automatically, generate documents from templates, and automate the tasks your team dreads.</p>
+              </div>
             </div>
-            <h3 class="helps__title">Support better decisions</h3>
-            <p class="helps__desc">Summarise reports, extract what matters, and surface insights faster ,  so you spend less time digging and more time deciding.</p>
           </div>
-        </div>
 
-        <div style="margin-top: var(--sp4);" data-animate>
-          <a href="/services.html" class="btn btn--ghost">See how we implement this</a>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ============================================================
-         INDUSTRIES
-         ============================================================ -->
-    <section class="section section--alt" aria-labelledby="industries-heading">
-      <div class="container">
-        <span class="section-label" data-animate>By industry</span>
-        <h2 class="section-heading" id="industries-heading" data-animate>AI built for how your industry works.</h2>
-        <p class="industries__intro" data-animate>Each industry has its own workflows, bottlenecks, and customer patterns. We build solutions around those ,  not generic tools that need to be bent into shape.</p>
-
-        <div class="industries__grid" data-stagger>
-          <a href="/industries/healthcare.html" class="industries__card">
-            <h3 class="industries__card-title">Healthcare Clinics</h3>
-            <ul class="industries__card-list">
-              <li>AI reception assistants</li>
-              <li>Patient follow-up automation</li>
-              <li>Appointment and inbox management</li>
-              <li>Internal clinic knowledge tools</li>
-            </ul>
-            <span class="industries__card-link">Explore &rarr;</span>
-          </a>
-
-          <a href="/industries/education.html" class="industries__card">
-            <h3 class="industries__card-title">Education Providers</h3>
-            <ul class="industries__card-list">
-              <li>AI training for staff and teachers</li>
-              <li>Admin and enrolment automation</li>
-              <li>Resource and document assistants</li>
-              <li>Internal knowledge systems</li>
-            </ul>
-            <span class="industries__card-link">Explore &rarr;</span>
-          </a>
-
-          <a href="/industries/trades.html" class="industries__card">
-            <h3 class="industries__card-title">Trades &amp; Services</h3>
-            <ul class="industries__card-list">
-              <li>Quote request assistants</li>
-              <li>Job intake and scheduling</li>
-              <li>Invoice and follow-up automation</li>
-              <li>Review request workflows</li>
-            </ul>
-            <span class="industries__card-link">Explore &rarr;</span>
-          </a>
-
-          <a href="/industries/real-estate.html" class="industries__card">
-            <h3 class="industries__card-title">Real Estate</h3>
-            <ul class="industries__card-list">
-              <li>Lead capture and qualification</li>
-              <li>Property enquiry chatbots</li>
-              <li>Listing content and follow-ups</li>
-              <li>Open-home automation</li>
-            </ul>
-            <span class="industries__card-link">Explore &rarr;</span>
-          </a>
-
-          <a href="/industries/admin-teams.html" class="industries__card">
-            <h3 class="industries__card-title">Admin-Heavy Teams</h3>
-            <ul class="industries__card-list">
-              <li>Inbox and email automation</li>
-              <li>Meeting notes and action tracking</li>
-              <li>Proposal and document generation</li>
-              <li>SOP and knowledge assistants</li>
-            </ul>
-            <span class="industries__card-link">Explore &rarr;</span>
-          </a>
-
-          <a href="/industries/professional-services.html" class="industries__card">
-            <h3 class="industries__card-title">Professional Services</h3>
-            <ul class="industries__card-list">
-              <li>Client intake automation</li>
-              <li>Document summarisation</li>
-              <li>Proposal and scope generation</li>
-              <li>Research and reporting</li>
-            </ul>
-            <span class="industries__card-link">Explore &rarr;</span>
-          </a>
-
-          <a href="/contact.html" class="industries__card industries__card--cta">
-            <h3 class="industries__card-title">Other / Custom</h3>
-            <ul class="industries__card-list">
-              <li>Bespoke workflow mapping</li>
-              <li>Custom internal tools</li>
-              <li>Business-specific automations</li>
-              <li>Any industry, any workflow</li>
-            </ul>
-            <span class="industries__card-link">Get in touch &rarr;</span>
-          </a>
         </div>
       </div>
     </section>
 
 
     <!-- ============================================================
-         SERVICES BRIEF
+         WORKFLOW EXAMPLE
          ============================================================ -->
-    <section class="section" aria-labelledby="services-heading">
+    <section class="workflow-section section section--soft" id="workflow-example" aria-labelledby="workflow-heading">
       <div class="container">
-        <span class="section-label" data-animate>How we work</span>
-        <h2 class="section-heading" id="services-heading" data-animate>Four ways to work with us.</h2>
-        <p class="services-brief__intro" data-animate>Whether you need a strategy session, a specific tool built, or end-to-end implementation ,  we work around what your business actually needs.</p>
+        <span class="section-label-v2" data-animate>How it works</span>
+        <h2 class="section-heading-v2" id="workflow-heading" data-animate>See how one workflow becomes easier.</h2>
+        <p class="workflow-section__intro" data-animate>A new enquiry lands. Here is what happens next, automatically.</p>
 
-        <div class="services-brief__grid" data-stagger>
-          <div class="services-brief__item">
-            <h3 class="services-brief__title">AI Strategy &amp; Consulting</h3>
-            <p class="services-brief__desc">Map where AI creates the most value in your business. Identify quick wins, high-impact automations, and a clear implementation plan before any building begins.</p>
+        <div class="workflow-flow" id="workflowFlow" aria-label="Workflow steps">
+          <div class="wf-node" data-wf-node>
+            <div class="wf-node__circle">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="wf-node__label">Enquiry</div>
+            <div class="wf-node__desc">Client submits a form or message</div>
           </div>
-          <div class="services-brief__item">
-            <h3 class="services-brief__title">Done-for-You Implementation</h3>
-            <p class="services-brief__desc">We build and deploy the AI tools ,  chatbots, automations, assistants ,  fully integrated into your existing tools and workflows. You don't need to touch any code.</p>
+          <div class="wf-connector" data-wf-connector></div>
+          <div class="wf-node" data-wf-node>
+            <div class="wf-node__circle">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            </div>
+            <div class="wf-node__label">AI Reply</div>
+            <div class="wf-node__desc">Smart response sent within seconds</div>
           </div>
-          <div class="services-brief__item">
-            <h3 class="services-brief__title">Custom AI Tools</h3>
-            <p class="services-brief__desc">For specific problems that off-the-shelf tools don't solve. We design and build AI tools tailored exactly to your workflow, your data, and your team.</p>
+          <div class="wf-connector" data-wf-connector></div>
+          <div class="wf-node" data-wf-node>
+            <div class="wf-node__circle">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div class="wf-node__label">Booking</div>
+            <div class="wf-node__desc">Meeting confirmed, calendar updated</div>
           </div>
-          <div class="services-brief__item">
-            <h3 class="services-brief__title">AI Training &amp; Education</h3>
-            <p class="services-brief__desc">Help your team understand AI, use it confidently, and adopt new tools well. Sessions tailored to your industry and your team's existing knowledge level.</p>
+          <div class="wf-connector" data-wf-connector></div>
+          <div class="wf-node" data-wf-node>
+            <div class="wf-node__circle">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="wf-node__label">Quote</div>
+            <div class="wf-node__desc">Draft prepared and sent for review</div>
+          </div>
+          <div class="wf-connector" data-wf-connector></div>
+          <div class="wf-node" data-wf-node>
+            <div class="wf-node__circle">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
+            <div class="wf-node__label">Follow-up</div>
+            <div class="wf-node__desc">Reminder sent automatically on schedule</div>
           </div>
         </div>
 
-        <a href="/services.html" class="btn" data-animate>See all services</a>
+        <p class="workflow-section__note" data-animate>All of this runs while you focus on the actual work.</p>
       </div>
     </section>
 
 
     <!-- ============================================================
-         TRAINING BRIEF
+         SERVICES
          ============================================================ -->
-    <section class="section section--alt" aria-labelledby="training-heading">
+    <section class="services-v2 section" aria-labelledby="services-v2-heading">
       <div class="container">
-        <div class="training-brief">
-          <div class="training-brief__content">
-            <span class="section-label" data-animate>AI Education</span>
-            <h2 class="section-heading" id="training-heading" data-animate>AI training for teams that want to use it well.</h2>
-            <p class="training-brief__desc" data-animate>Understanding AI is the first step to using it well. We run practical training sessions for business teams, clinics, schools, and organisations ,  tailored to your industry and your team's starting point.</p>
-            <p class="training-brief__desc" data-animate>No assumed technical knowledge. No jargon. Sessions focused on the tools your team will actually use, and how to use them safely and effectively.</p>
-            <a href="/ai-training.html" class="btn" data-animate>Learn about training</a>
+        <span class="section-label-v2" data-animate>How we work</span>
+        <h2 class="section-heading-v2" id="services-v2-heading" data-animate>Four ways I can help.</h2>
+
+        <div class="services-v2__grid" data-stagger>
+
+          <div class="service-card">
+            <div class="service-card__icon" style="--icon-color: #3B82F6; --icon-bg: rgba(59,130,246,0.08);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <h3 class="service-card__title">AI Opportunity Audit</h3>
+            <p class="service-card__desc">A practical review of your business. We map your workflows, find where time is leaking, and surface the highest-value AI opportunities before anything is built.</p>
+            <a href="/services.html" class="service-card__link">Learn more &rarr;</a>
           </div>
-          <div class="training-brief__sessions" data-animate>
-            <ul class="training-brief__list">
-              <li>AI 101 for teams ,  what AI is, how it works, what it can and can't do</li>
-              <li>AI tools for daily productivity</li>
-              <li>Responsible AI, privacy, and data handling</li>
-              <li>Prompting and workflow design</li>
-              <li>AI for leadership and decision-makers</li>
-              <li>Industry-specific use cases and tools</li>
-              <li>Custom workshops for your business</li>
-            </ul>
+
+          <div class="service-card">
+            <div class="service-card__icon" style="--icon-color: #7C3AED; --icon-bg: rgba(124,58,237,0.08);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </div>
+            <h3 class="service-card__title">AI Workflow Build</h3>
+            <p class="service-card__desc">We build and deploy the automations, chatbots, and tools your business needs. Done for you, fully integrated, no code required from your side.</p>
+            <a href="/services.html" class="service-card__link">Learn more &rarr;</a>
           </div>
+
+          <div class="service-card">
+            <div class="service-card__icon" style="--icon-color: #059669; --icon-bg: rgba(5,150,105,0.08);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3 class="service-card__title">AI Training</h3>
+            <p class="service-card__desc">Practical workshops for your team. Real tools, real use cases, no jargon. Sessions tailored to your industry and your team's starting point.</p>
+            <a href="/ai-training.html" class="service-card__link">Learn more &rarr;</a>
+          </div>
+
+          <div class="service-card">
+            <div class="service-card__icon" style="--icon-color: #D97706; --icon-bg: rgba(217,119,6,0.08);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <h3 class="service-card__title">AI Systems Setup</h3>
+            <p class="service-card__desc">Full AI infrastructure for your business, from intake to operations. Custom tools built around your data, your team, and your way of working.</p>
+            <a href="/services.html" class="service-card__link">Learn more &rarr;</a>
+          </div>
+
         </div>
       </div>
     </section>
@@ -385,11 +417,11 @@
     <!-- ============================================================
          INSIGHTS PREVIEW
          ============================================================ -->
-    <section class="section" aria-labelledby="insights-heading">
+    <section class="section section--soft" aria-labelledby="insights-heading">
       <div class="container">
-        <span class="section-label" data-animate>Insights</span>
-        <h2 class="section-heading" id="insights-heading" data-animate>Practical perspectives on AI.</h2>
-        <p class="insights-preview__intro" data-animate>Written for decision-makers and business owners thinking seriously about how AI applies to their operations. No hype, no speculation ,  implementation thinking.</p>
+        <span class="section-label-v2" data-animate>Insights</span>
+        <h2 class="section-heading-v2" id="insights-heading" data-animate>Practical perspectives on AI.</h2>
+        <p class="insights-preview__intro" data-animate>Written for decision-makers thinking seriously about how AI applies to their operations. No hype, implementation thinking.</p>
 
         <div class="insights-preview__grid" data-stagger>
           <div class="insights-preview__card">
@@ -401,24 +433,22 @@
             <p class="insights-preview__excerpt">The questions that surface in every engagement, and the honest answers. No pitch, no jargon.</p>
             <a href="blog/what-nz-businesses-ask-about-ai.html" class="insights-preview__read">Read &rarr;</a>
           </div>
-
           <div class="insights-preview__card">
             <div class="insights-preview__meta">
               <time datetime="2026-02-17">17 Feb 2026</time>
               <span class="insights-preview__tag">Methodology</span>
             </div>
             <h3 class="insights-preview__title">The First Thing We Look at When Automating a Workflow</h3>
-            <p class="insights-preview__excerpt">Before touching any tool, we do one thing first. Here is what it is and why it changes the quality of everything built after it.</p>
+            <p class="insights-preview__excerpt">Before touching any tool, we do one thing first. Here is what it is and why it changes everything built after.</p>
             <a href="blog/first-thing-i-look-at-when-automating.html" class="insights-preview__read">Read &rarr;</a>
           </div>
-
           <div class="insights-preview__card">
             <div class="insights-preview__meta">
               <time datetime="2026-02-10">10 Feb 2026</time>
               <span class="insights-preview__tag">AI for Business</span>
             </div>
             <h3 class="insights-preview__title">The Four Eras of Business Technology</h3>
-            <p class="insights-preview__excerpt">Every decade has had a technology that separated the businesses that grew from those that fell behind. Here is the pattern.</p>
+            <p class="insights-preview__excerpt">Every decade has had a technology that separated businesses that grew from those that fell behind.</p>
             <a href="blog/four-eras-of-business-technology.html" class="insights-preview__read">Read &rarr;</a>
           </div>
         </div>
@@ -429,64 +459,123 @@
 
 
     <!-- ============================================================
-         TRUST / REASSURANCE
+         CREDIBILITY
          ============================================================ -->
-    <section class="section section--alt" aria-labelledby="trust-heading">
+    <section class="credibility-section" aria-labelledby="credibility-heading">
       <div class="container">
-        <span class="section-label" data-animate>Our approach</span>
-        <h2 class="section-heading" id="trust-heading" data-animate>Practical, responsible AI.</h2>
-        <p class="helps__intro" data-animate>For businesses that are cautious, curious, or simply unsure what to expect ,  here is how we approach every engagement.</p>
+        <div class="credibility-section__inner">
 
-        <div class="helps__grid" data-stagger>
-          <div class="helps__card">
-            <div class="helps__icon" aria-hidden="true">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <h3 class="helps__title">Privacy-aware</h3>
-            <p class="helps__desc">AI should be implemented with care around data, access, and risk. We map what's used, where it goes, and what safeguards are needed before anything is built.</p>
+          <div class="credibility-section__text">
+            <span class="credibility-section__eyebrow">Built by Miss AI</span>
+            <h2 class="credibility-section__heading" id="credibility-heading">I help business owners understand and implement AI without jargon, hype, or overwhelm.</h2>
+            <p class="credibility-section__sub">My work sits at the intersection of AI, automation, venture, content, and business operations. I build real workflows, in public, for businesses that want to move forward.</p>
           </div>
 
-          <div class="helps__card">
-            <div class="helps__icon" aria-hidden="true">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>
-            </div>
-            <h3 class="helps__title">Human-led</h3>
-            <p class="helps__desc">AI supports people. It does not replace judgement. Critical decisions stay with your team ,  AI handles the admin, not the oversight.</p>
-          </div>
+          <ul class="credibility-section__points" role="list">
+            <li class="credibility-point">
+              <div class="credibility-point__dot"></div>
+              <span>AI consultant and builder</span>
+            </li>
+            <li class="credibility-point">
+              <div class="credibility-point__dot"></div>
+              <span>Miss AI creator</span>
+            </li>
+            <li class="credibility-point">
+              <div class="credibility-point__dot"></div>
+              <span>DealFlow Podcast host</span>
+            </li>
+            <li class="credibility-point">
+              <div class="credibility-point__dot"></div>
+              <span>Background in venture, Web3, and emerging technology</span>
+            </li>
+            <li class="credibility-point">
+              <div class="credibility-point__dot"></div>
+              <span>Building real AI workflows in public</span>
+            </li>
+          </ul>
 
-          <div class="helps__card">
-            <div class="helps__icon" aria-hidden="true">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            </div>
-            <h3 class="helps__title">Practical</h3>
-            <p class="helps__desc">The goal is useful workflows, not hype. We only implement tools your team can actually use, that solve problems your business actually has.</p>
-          </div>
-
-          <div class="helps__card">
-            <div class="helps__icon" aria-hidden="true">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-            </div>
-            <h3 class="helps__title">Outcome-focused</h3>
-            <p class="helps__desc">We focus on saving time, reducing admin, and improving performance ,  not on impressive demos or tools that nobody ends up using.</p>
-          </div>
         </div>
       </div>
     </section>
 
 
     <!-- ============================================================
-         CTA SECTION
+         FAQ
          ============================================================ -->
-    <section class="cta-section" aria-labelledby="cta-heading">
+    <section class="faq-section section" aria-labelledby="faq-heading">
       <div class="container">
-        <div class="cta-section__inner">
-          <span class="cta-section__label">Get started</span>
-          <h2 class="cta-section__heading" id="cta-heading">Curious how AI could work in your business?</h2>
-          <p class="cta-section__sub">If you are AI-curious, AI-frustrated, or simply unsure where to start ,  book a free call and we can talk through the opportunities together.</p>
-          <div class="cta-section__group">
-            <a href="https://calendly.com/aiconsulting-keira/30min" class="btn btn--large" target="_blank" rel="noopener noreferrer">Book a free call</a>
-            <a href="/contact.html" class="btn btn--ghost btn--large">Other ways to get in touch</a>
+        <span class="section-label-v2" data-animate>Common questions</span>
+        <h2 class="section-heading-v2" id="faq-heading" data-animate>Real questions, honest answers.</h2>
+
+        <div class="faq-list" data-animate>
+
+          <div class="faq-item">
+            <button class="faq-item__trigger" aria-expanded="false" aria-controls="faq-1">
+              <span class="faq-item__icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </span>
+              <span>"I'm a tradie. What can AI actually help with?"</span>
+              <svg class="faq-item__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-item__body" id="faq-1" role="region">
+              <p>Start with quoting and follow-ups. AI can take your job details and draft a professional quote, then automatically send reminders to customers who haven't responded. Most tradies save 2-3 hours a week in their first month. From there, job scheduling, review requests, and invoice reminders are all straightforward wins.</p>
+            </div>
           </div>
+
+          <div class="faq-item">
+            <button class="faq-item__trigger" aria-expanded="false" aria-controls="faq-2">
+              <span class="faq-item__icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </span>
+              <span>"I run a clinic. Where should I start?"</span>
+              <svg class="faq-item__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-item__body" id="faq-2" role="region">
+              <p>Your front desk is the highest-leverage place. An AI assistant can handle common patient enquiries, remind patients about appointments, and help with intake forms, all without adding staff. Clinics typically see a meaningful drop in no-shows and admin load within the first few weeks.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-item__trigger" aria-expanded="false" aria-controls="faq-3">
+              <span class="faq-item__icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </span>
+              <span>"I already use ChatGPT. What now?"</span>
+              <svg class="faq-item__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-item__body" id="faq-3" role="region">
+              <p>Great start. The next step is connecting AI to your actual workflows, so it is not you copying and pasting, but AI running tasks automatically in the background. That is where the real time savings come from. Think of ChatGPT as a capable assistant you have to supervise, and AI workflows as a system that runs itself.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-item__trigger" aria-expanded="false" aria-controls="faq-4">
+              <span class="faq-item__icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </span>
+              <span>"Will this replace my team?"</span>
+              <svg class="faq-item__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-item__body" id="faq-4" role="region">
+              <p>No. AI takes the repetitive tasks off your team's plate so they can focus on the work that actually needs a human. The goal is a lighter workload, not fewer people. The businesses that use AI well tend to get more done with the same team, and the team tends to be a lot happier for it.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         FINAL CTA
+         ============================================================ -->
+    <section class="cta-v2" aria-labelledby="cta-v2-heading">
+      <div class="cta-v2__bg" aria-hidden="true"></div>
+      <div class="container">
+        <div class="cta-v2__inner">
+          <h2 class="cta-v2__heading" id="cta-v2-heading">Ready to make your business feel lighter?</h2>
+          <p class="cta-v2__sub">Let's find the first workflow AI should take off your plate.</p>
+          <a href="https://calendly.com/aiconsulting-keira/30min" class="btn-pill btn-pill--lime" target="_blank" rel="noopener noreferrer">Book a Call</a>
         </div>
       </div>
     </section>
@@ -494,9 +583,6 @@
   </main>
 
 
-  <!-- ============================================================
-       FOOTER
-       ============================================================ -->
   <footer class="footer">
     <div class="container">
       <div class="footer__inner">
@@ -504,14 +590,12 @@
           <span class="footer__brand">AI Consultancy</span>
           <p class="footer__tagline">Practical AI for businesses that want to work smarter.</p>
         </div>
-
         <nav class="footer__nav-group" aria-label="Services">
           <p class="footer__nav-label">Services</p>
           <a href="/services.html">All Services</a>
           <a href="/ai-training.html">AI Training</a>
           <a href="/contact.html">Get in Touch</a>
         </nav>
-
         <nav class="footer__nav-group" aria-label="Industries">
           <p class="footer__nav-label">Industries</p>
           <a href="/industries/healthcare.html">Healthcare</a>
@@ -521,7 +605,6 @@
           <a href="/industries/admin-teams.html">Admin Teams</a>
           <a href="/industries/professional-services.html">Professional Services</a>
         </nav>
-
         <nav class="footer__nav-group" aria-label="Company">
           <p class="footer__nav-label">Company</p>
           <a href="/about.html">About</a>
