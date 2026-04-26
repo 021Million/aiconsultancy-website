@@ -261,6 +261,7 @@
 /* ============================================================
    CHAT WIDGET
    ============================================================ */
+document.addEventListener('DOMContentLoaded', function () {
 (function () {
   var widget   = document.getElementById('chatWidget');
   var toggle   = document.getElementById('chatToggle');
@@ -382,3 +383,4 @@
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
   });
 }());
+});
