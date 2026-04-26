@@ -168,5 +168,34 @@
   </footer>
 
   <script src="js/main.js"></script>
+
+  <!-- ============================================================
+       CHAT WIDGET
+       ============================================================ -->
+  <div class="chat-widget" id="chatWidget">
+    <button class="chat-toggle" id="chatToggle" aria-label="Chat with us" aria-expanded="false" aria-controls="chatPanel">
+      <svg class="chat-toggle__icon chat-toggle__icon--open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <svg class="chat-toggle__icon chat-toggle__icon--close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="chat-panel" id="chatPanel" aria-hidden="true" role="dialog" aria-label="Chat with AI Consultancy">
+      <div class="chat-panel__header">
+        <div class="chat-panel__avatar" aria-hidden="true">AI</div>
+        <div>
+          <p class="chat-panel__name">AI Consultancy</p>
+          <p class="chat-panel__status">Ask me anything</p>
+        </div>
+        <button class="chat-panel__close" id="chatClose" aria-label="Close chat">&times;</button>
+      </div>
+      <div class="chat-messages" id="chatMessages" role="log" aria-live="polite">
+        <div class="chat-msg chat-msg--bot"><p>Hi! I can help you figure out where AI could save time in your business. What would you like to know?</p></div>
+      </div>
+      <div class="chat-input-row">
+        <input class="chat-input" id="chatInput" type="text" placeholder="Type a message..." aria-label="Your message" autocomplete="off">
+        <button class="chat-send" id="chatSend" aria-label="Send message">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

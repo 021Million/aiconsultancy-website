@@ -256,3 +256,129 @@
   });
 
 }());
+
+
+/* ============================================================
+   CHAT WIDGET
+   ============================================================ */
+(function () {
+  var widget   = document.getElementById('chatWidget');
+  var toggle   = document.getElementById('chatToggle');
+  var panel    = document.getElementById('chatPanel');
+  var messages = document.getElementById('chatMessages');
+  var input    = document.getElementById('chatInput');
+  var sendBtn  = document.getElementById('chatSend');
+  var closeBtn = document.getElementById('chatClose');
+
+  if (!widget || !toggle) return;
+
+  /* Session ID — persists for the browser tab, resets on new visit */
+  var sessionId = sessionStorage.getItem('chat_session_id');
+  if (!sessionId) {
+    sessionId = 'cs_' + Date.now() + '_' + Math.random().toString(36).slice(2, 9);
+    sessionStorage.setItem('chat_session_id', sessionId);
+  }
+
+  var history = [];
+  var isOpen  = false;
+  var loading = false;
+
+  function openChat() {
+    isOpen = true;
+    widget.classList.add('is-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    panel.removeAttribute('aria-hidden');
+    input.focus();
+  }
+
+  function closeChat() {
+    isOpen = false;
+    widget.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    panel.setAttribute('aria-hidden', 'true');
+  }
+
+  toggle.addEventListener('click', function () { isOpen ? closeChat() : openChat(); });
+  if (closeBtn) closeBtn.addEventListener('click', closeChat);
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function addMessage(role, text) {
+    var el = document.createElement('div');
+    el.className = 'chat-msg chat-msg--' + (role === 'user' ? 'user' : 'bot');
+    el.innerHTML = '<p>' + escapeHtml(text) + '</p>';
+    messages.appendChild(el);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function showTyping() {
+    var el = document.createElement('div');
+    el.className = 'chat-typing';
+    el.id = 'chatTyping';
+    el.innerHTML = '<div class="chat-typing__dot"></div><div class="chat-typing__dot"></div><div class="chat-typing__dot"></div>';
+    messages.appendChild(el);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function hideTyping() {
+    var el = document.getElementById('chatTyping');
+    if (el) el.remove();
+  }
+
+  function setLoading(state) {
+    loading = state;
+    sendBtn.disabled = state;
+  }
+
+  async function sendMessage() {
+    var text = input.value.trim();
+    if (!text || loading) return;
+
+    input.value = '';
+    addMessage('user', text);
+    showTyping();
+    setLoading(true);
+
+    try {
+      var res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: text,
+          sessionId: sessionId,
+          history: history,
+          pageUrl: window.location.href,
+        }),
+      });
+
+      var data = await res.json();
+      hideTyping();
+
+      var reply = data.reply || data.error || 'Something went wrong. Please try again.';
+      addMessage('assistant', reply);
+
+      if (data.reply) {
+        history.push({ role: 'user', content: text });
+        history.push({ role: 'assistant', content: data.reply });
+        if (history.length > 20) history = history.slice(-20);
+      }
+    } catch (err) {
+      hideTyping();
+      addMessage('assistant', 'Something went wrong. You can also email info@realmissai.com.');
+    }
+
+    setLoading(false);
+    input.focus();
+  }
+
+  sendBtn.addEventListener('click', sendMessage);
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  });
+}());
