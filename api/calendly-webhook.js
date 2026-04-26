@@ -59,7 +59,7 @@ module.exports = async function handler(req, res) {
   // complete before we return. maxDuration: 30 in vercel.json gives us time.
   console.log('[Calendly] Starting processBooking (awaited)...');
   try {
-    await processBooking({ name, email, company, website, biggestChallenge, startTime, meetingLink });
+    await processBooking({ name, email, company, website, biggestChallenge, timezone, startTime, endTime, meetingLink, eventName });
   } catch (err) {
     console.error('[processBooking] Top-level failure:', err.message, err.stack);
   }
@@ -74,7 +74,7 @@ module.exports.config = {
 
 // ---------------------------------------------------------------------------
 
-async function processBooking({ name, email, company, website, biggestChallenge, startTime, meetingLink }) {
+async function processBooking({ name, email, company, website, biggestChallenge, timezone, startTime, endTime, meetingLink, eventName }) {
   console.log('[processBooking] Starting for:', name, '|', company);
 
   // 1. Research the client via Claude
@@ -82,6 +82,14 @@ async function processBooking({ name, email, company, website, biggestChallenge,
   const prepNote = await researchClient({ name, company, website, biggestChallenge });
   console.log('[processBooking] researchClient done. prepNote:', prepNote ? 'received (' + prepNote.length + ' chars)' : 'null — stopping');
   if (!prepNote) return;
+
+  // 1b. Save to Supabase
+  console.log('[processBooking] Step 1b: saveToSupabase...');
+  try {
+    await saveToSupabase({ name, email, company, website, biggestChallenge, timezone, startTime, endTime, meetingLink, eventName, prepNote });
+  } catch (err) {
+    console.error('[processBooking] saveToSupabase threw:', err.message);
+  }
 
   // 2. Create Google Doc and share with user
   console.log('[processBooking] Step 2: createGoogleDoc...');
@@ -417,6 +425,56 @@ function escapeHtml(str) {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
+}
+
+// ---------------------------------------------------------------------------
+// Save booking and prep note to Supabase
+async function saveToSupabase({ name, email, company, website, biggestChallenge, timezone, startTime, endTime, meetingLink, eventName, prepNote }) {
+  var url = process.env.SUPABASE_URL;
+  var key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) {
+    console.warn('[Supabase] Missing env vars — skipping save');
+    return null;
+  }
+
+  var payload = {
+    name,
+    email,
+    company,
+    website,
+    biggest_challenge: biggestChallenge,
+    timezone,
+    start_time: startTime,
+    end_time: endTime,
+    meeting_link: meetingLink,
+    event_name: eventName,
+    prep_note: prepNote,
+    status: 'booked',
+  };
+
+  try {
+    var res = await fetch(url + '/rest/v1/clients', {
+      method: 'POST',
+      headers: {
+        'Content-Type':  'application/json',
+        'apikey':        key,
+        'Authorization': 'Bearer ' + key,
+        'Prefer':        'return=representation',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    var data = await res.json();
+    if (!res.ok) {
+      console.error('[Supabase] Insert failed:', JSON.stringify(data));
+      return null;
+    }
+    console.log('[Supabase] Client saved. id:', data[0] && data[0].id);
+    return data[0];
+  } catch (err) {
+    console.error('[Supabase] saveToSupabase threw:', err.message);
+    return null;
+  }
 }
 
 // ---------------------------------------------------------------------------
