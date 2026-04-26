@@ -191,6 +191,41 @@
 
 
   /* ============================================================
+     ERAS EVOLUTION: activate items + fill line on scroll
+     ============================================================ */
+  var evoStrip = document.getElementById('evoStrip');
+  var evoFill  = document.getElementById('evoFill');
+  var evoItems = Array.from(document.querySelectorAll('[data-evo-item]'));
+
+  if (evoStrip && evoItems.length) {
+    /* Activate each item via IntersectionObserver */
+    var evoObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-active');
+        }
+      });
+    }, { threshold: 0.5 });
+
+    evoItems.forEach(function (item) { evoObserver.observe(item); });
+
+    /* Fill the connecting line proportionally as the section scrolls into view */
+    if (evoFill) {
+      function updateEvoFill() {
+        var rect   = evoStrip.getBoundingClientRect();
+        var vh     = window.innerHeight;
+        /* progress: 0 when strip top hits bottom of viewport, 1 when strip bottom hits top */
+        var progress = 1 - (rect.bottom / (vh + rect.height));
+        progress = Math.max(0, Math.min(1, progress));
+        evoFill.style.width = (progress * 100) + '%';
+      }
+      window.addEventListener('scroll', updateEvoFill, { passive: true });
+      updateEvoFill();
+    }
+  }
+
+
+  /* ============================================================
      FAQ ACCORDION: click to expand / collapse
      ============================================================ */
   document.querySelectorAll('.faq-item__trigger').forEach(function (trigger) {
